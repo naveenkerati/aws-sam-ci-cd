@@ -1,20 +1,18 @@
-name: Hi Mascot
+name: AWS SAM CI/CD Workflow
 on: push
 env:
   mascot: Mona
   super_duper_var: totally_awesome
 
 jobs:
-  windows_job:
-    runs-on: windows-latest
-    steps:
-      - run: echo 'Hi ${{ env.mascot }}'  # Hi Mona
-      - run: echo 'Hi ${{ env.mascot }}'  # Hi Octocat
-        env:
-          mascot: Octocat
-  linux_job:
+  sam-validate:
     runs-on: ubuntu-latest
     env:
       mascot: Tux
     steps:
-      - run: echo 'Hi ${{ env.mascot }}'  # Hi Tux
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - uses: aws-actions/setup-sam@v1
+      - run: sam validate -t template.json

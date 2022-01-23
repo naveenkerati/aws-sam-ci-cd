@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: ''
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    MemorySize: 128
+Parameters: ''
+Resources:
+  helloWorld:
+    Description: ''
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: helloWorld
+      Handler: index.handler
+    Metadata:
+      SamResourceId: helloWorld
