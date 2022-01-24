@@ -5,23 +5,23 @@ env:
   TESTING_ARTIFACTS_BUCKET: sam-test-ci-cd
   TESTING_STACK_NAME: sam-test
 jobs:
-  test-code-and-coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "3.8"
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: |
-          cd src
-          npm install 
-          npm test
+  # test-code-and-coverage:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: "3.8"
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '14'
+  #     - run: |
+  #         cd src
+  #         npm install 
+  #         npm test
   validate-and-package:
     if: github.ref == 'refs/heads/main'
-    needs: [test-code-and-coverage]
+    # needs: [test-code-and-coverage]
     environment: dev
     runs-on: ubuntu-latest
     steps:
