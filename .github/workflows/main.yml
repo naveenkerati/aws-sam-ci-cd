@@ -1,15 +1,13 @@
 name: AWS SAM CI/CD Workflow
 on: push
 env:
-  mascot: Mona
-  super_duper_var: totally_awesome
-
+  REGION: ap-south-1
+  TESTING_ARTIFACTS_BUCKET: sam-test-ci-cd
 jobs:
-  sam-validate:
+  validate-and-package:
+    if: github.ref == 'refs/heads/main'
     environment: dev
     runs-on: ubuntu-latest
-    env:
-      mascot: Tux
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -19,11 +17,43 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: ${REGION}
       - uses: aws-actions/setup-sam@v1
       - run: sam validate -t template.json
-  # sam-build:
-  #   environment: dev
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - 
+      - name: package sam application
+        run: |
+          sam package \
+          --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
+          --region ${REGION} \
+          --output-template-file package.yaml
+      - uses: actions/upload-artifact@v2
+        with:
+          name: package.yaml
+          path: package.yaml
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    environment: dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${REGION}
+      - uses: aws-actions/setup-sam@v1
+      - uses: actions/dowload-artifact@v2
+        with:
+          name: package.yaml
+          path: package.yaml
+      - name: deploy to the aws cloud
+        run: |
+          sam deploy --stack-name ${TESTING_STACK_NAME} \
+          --template package.yaml \
+          --capabilities CAPABILITY_IAM \
+          --region ${REGION} \
+          --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
+          --no-fail-on-empty-changeset 
