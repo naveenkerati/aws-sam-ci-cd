@@ -17,7 +17,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${REGION}
+          aws-region: ${env.REGION}
       - uses: aws-actions/setup-sam@v1
       - run: sam validate -t template.json
       - name: package sam application
@@ -43,7 +43,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${REGION}
+          aws-region: ${env.REGION}
       - uses: aws-actions/setup-sam@v1
       - uses: actions/dowload-artifact@v2
         with:
