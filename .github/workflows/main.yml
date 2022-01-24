@@ -22,3 +22,8 @@ jobs:
           aws-region: ap-south-1
       - uses: aws-actions/setup-sam@v1
       - run: sam validate -t template.json
+  sam-build:
+    environment: dev
+    runs-on: ubuntu-latest
+    steps:
+      - 
