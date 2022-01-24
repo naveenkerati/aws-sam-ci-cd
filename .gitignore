@@ -90,7 +90,7 @@ dist
 
 # vuepress build output
 .vuepress/dist
-.aws.sam/
+.aws-sam/
 # Serverless directories
 .serverless/
 
