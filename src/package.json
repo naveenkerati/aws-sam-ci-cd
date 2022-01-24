@@ -4,14 +4,12 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node start.js"
+      "test": "mocha tests/unit/"
     },
     "author": "Naveen Kerati",
     "license": "ISC",
     "dependencies": {
-
-
+      "aws-sdk": "*"
     },
     "devDependencies": {
       "chai": "^4.2.0",
