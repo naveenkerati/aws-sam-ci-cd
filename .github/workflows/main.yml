@@ -50,7 +50,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: package.yaml
-          path: package.yaml
       - name: deploy to the aws cloud
         run: |
           sam deploy --stack-name ${TESTING_STACK_NAME} \
