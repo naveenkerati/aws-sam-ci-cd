@@ -3,6 +3,7 @@ on: push
 env:
   REGION: ap-south-1
   TESTING_ARTIFACTS_BUCKET: sam-test-ci-cd
+  TESTING_STACK_NAME: sam-test
 jobs:
   validate-and-package:
     if: github.ref == 'refs/heads/main'
