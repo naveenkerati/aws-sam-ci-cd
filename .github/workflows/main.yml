@@ -58,3 +58,8 @@ jobs:
           --region ${REGION} \
           --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
           --no-fail-on-empty-changeset 
+  run-integration-test:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "running integration tests"
