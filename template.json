@@ -8,7 +8,9 @@
             "MemorySize": 128
         }
     },
-    "Parameters":"",
+    "Parameters":{
+        
+    },
     "Resources":{
         "helloWorld":{
             "Description":"",
