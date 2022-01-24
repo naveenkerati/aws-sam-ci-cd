@@ -21,6 +21,7 @@ jobs:
           npm test
   validate-and-package:
     if: github.ref == 'refs/heads/main'
+    needs: [test-code-and-coverage]
     environment: dev
     runs-on: ubuntu-latest
     steps:
