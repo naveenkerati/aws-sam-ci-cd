@@ -33,6 +33,7 @@ jobs:
           path: package.yaml
   deploy:
     if: github.ref == 'refs/heads/main'
+    needs: [validate-and-package]
     environment: dev
     runs-on: ubuntu-latest
     steps:
