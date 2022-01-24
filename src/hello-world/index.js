@@ -1,5 +1,5 @@
-var aws = requires("aws-sdk")
-var axios = requires("axios")
+const aws = require("aws-sdk")
+
 exports.handler =  async(event, context) => {
   try {
       // const ret = await axios(url);
