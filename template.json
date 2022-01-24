@@ -14,7 +14,7 @@
             "Description":"",
             "Type": "AWS::Serverless::Function",
             "Properties":{
-                "CodeUri":"./hello-world",
+                "CodeUri":"./src/hello-world",
                 "Handler":"index.handler"
             }
         }
